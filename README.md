@@ -1,5 +1,6 @@
 # Record-Management-System
 
+
 Login- admin
   Username - jayrex
   Password - 12345
@@ -46,3 +47,11 @@ Scope and Limitation of the System:
 	4.3 Sales reports;  and
 	4.4 Walk-in reports; 
 
+Languages used for this project:
+	-PHP
+	-MySQL
+	-CSS
+	-HTML5
+Frameworks used for this project:
+	-Jquery
+	-AngularJS
