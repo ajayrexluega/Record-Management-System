@@ -1,0 +1,245 @@
+<!-- Latest compiled and minified CSS -->
+<html>
+<head>
+
+</head>
+
+<style type="text/css">
+
+
+body{
+    background-color: #eee;
+
+}
+
+.fname, .lname{
+    border: 1px solid #cccccc;
+	border-radius: 5px;
+	padding-left: 15px;
+	width: 200px;
+	height: 35px;
+	margin-top: 5px;
+	font-size: 12pt;
+	margin-left: 50px;
+	margin-right: 20px;
+
+}
+.fname{
+	margin-left: 40px;
+}
+.age{
+	border: 1px solid #cccccc;
+	border-radius: 5px;
+	padding-left: 10px;
+	width: 60px;
+	height: 35px;
+	margin-top: 5px;
+	font-size: 12pt;
+	margin-left: 50px;
+	margin-right: 20px;
+
+}
+fieldset{
+	border-color: #ccc;
+	border-radius: 10px;
+	box-shadow: none;
+	outline: 0 none;
+	
+
+}
+#fields{
+	float: left;
+	
+}
+.submit{
+	width: 90px;
+	height: 35px;
+	background-color:  #428bca;
+	border-radius: 5px;
+	cursor:pointer;
+	color: #fff;
+	border: none;
+	margin-bottom: 10px;
+	margin-right: 30px;
+	float: right;
+
+}
+.submit:hover{
+	background-color: #337ab7;
+}
+#move{
+	padding-left: 130px;
+}
+input:focus{
+	border: 1px solid #428bca;
+    box-shadow: 1px 1px 1px #428bca;
+    outline: 0 none;
+	transition: .5s;
+}
+#caddress,#profession,#company,#contact,#school,#course,#email,#facebook,#weigth,#heigth,
+#bloodtype,#bp,#medical,#previousgym,#topay,#paidamount,#balance,#regdate,#expdate,#expdate_sub{
+width: 200px;
+height: 30px;
+border-radius: 5px;
+border: 1px solid #cccccc;
+margin-left: 40px;
+margin-bottom: 10px;
+padding-left: 10px;
+}
+#caddress{
+	width: 445px;
+}
+#profession,#company{
+	width: 445px;
+}
+#contact{
+	width: 250px;
+}
+#school,#course{
+	width: 250px;
+}
+#email, #facebook{
+	width: 250px;
+}
+#medical{
+	width: 700px;
+}
+#previousgym{
+	width: 500px;
+}
+select{
+	height: 30px;
+	border-radius: 5px;
+}
+#regdate,#expdate,#expdate_sub{
+	height: 30px;
+}
+.datespan{
+  margin-left: 40px;
+}
+#success{
+	margin-left: 400px;
+	color: green;
+}
+</style>
+
+
+<body>
+<div id="wtf" ng-controller="addmemberController">
+
+
+			<div id="fields" ng-controller="subscriptionlistController">
+			<form id="regform" method="post" action="../php/regmember.php">
+				<fieldset style="width:1050; border-width:1px;" >
+			<legend><h2>Add Record</h2></legend>
+			<h3 id="success"></h3>
+			
+				
+			 <input class="fname" type='text' name='firstname' id='firstname' placeholder="First Name" required/>
+
+			<input class="lname" type='text' name='lastname' id='lastname' placeholder="Last Name" required />
+			<input class="age" type='text' name='age' id='age' placeholder="Age" onkeypress="return event.charCode === 0 || /\d/.test(String.fromCharCode(event.charCode));" required/>
+
+			<label for="male">Male  </label><input type="radio" name="gender" id="male" required value="Male" />
+			<label for="female">Female  </label><input type="radio" name="gender" id="female" value="Female" /><br /><br />
+
+				 <input type="text" name="address" id="caddress" placeholder="Current Address" required><br/>
+				 <input type="text" name="contact" id="contact" placeholder="Contact # (Mobile/Landline)" required>
+				 <input type="text" name="email" id="email" placeholder="Email Address" required>
+				 <input type="text" name="facebook" id="facebook" placeholder="Facebook"><br />
+				 <input type="text" name="weight" id="weigth" placeholder="Weight" required>
+				 <input type="text" name="height" id="heigth" placeholder="Height" required><br/>
+				 <p hidden><span class="datespan">Subscription</span>
+				 <select name="subscription" ng-model="data.repeatSelect" required>
+				 	  <option  value="None">None</option>
+				 	  <option ng-repeat="subscription in data" value="{{subscription.subscription_name}}">{{subscription.subscription_name}}</option>
+					  
+				 </select>
+				 <input type="text" name="program" id="heigth" placeholder="Program" hidden>
+				 <input type="date" name="expdate_sub" id="expdate_sub" placeholder="Expiration date"><br/>
+ 				 </p>
+				  
+				 
+				 <span class="datespan">Membership Expiration date</span><input type="date" name="expdate" id="expdate" class="expdate" placeholder="Expiration date">
+				 <span class="datespan">Membership Status <select name="status">
+						 	  <option value="Not Registered">Not Registered</option>
+							  <option value="active">Active</option>
+							  <option value="expired">Expired</option>
+						 </select><br/><br/>
+				 
+          		 <span class="datespan">Record Registration Date</span><input type="text" name="regdate" id="regdate" readonly><br/>
+          		
+
+			<br><br><input class="submit" type="submit" name="submit">
+		</fieldset>
+			</form>
+			</div>			
+			
+</div>
+
+
+<script type="text/javascript">
+
+   
+
+		$(document).ready(function(){
+ 
+  
+    
+ 
+			var my_date_format = function(){
+    
+				var d = new Date();
+
+				var month = d.getMonth()+1;
+				var day = d.getDate();
+				//var output = ((''+day).length<2 ? '0' : '') + day  + '-' +
+				//((''+month).length<2 ? '0' : '') + month + '-' +
+				//d.getFullYear();
+				var output = d.getFullYear()  + '-' +
+				((''+month).length<2 ? '0' : '') + month + '-' + ((''+day).length<2 ? '0' : '') + day
+				;
+
+				return (output);
+ 
+};
+
+
+	
+
+	$('#regdate').val(my_date_format);
+	
+	
+
+
+
+         $('#regform').submit(function(){
+
+         		$('#date').val(my_date_format);
+         		
+
+
+                  $.ajax({
+                           data: $(this).serialize(),
+                           type: $(this).attr('method'),
+                           url: $(this).attr('action'),
+                           success: function(data){
+                                    $('#success').html(data);
+                                    $("#regform")[0].reset();
+                            }
+
+                  });
+
+                  
+                  $('#regdate').val(my_date_format);
+                event.preventDefault();
+         });
+         
+
+});﻿
+
+
+
+	</script>
+
+</body>
